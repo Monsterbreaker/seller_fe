@@ -16,7 +16,7 @@ export default class Order{
     getOrderList(listParam){
         if(listParam.listType == 'list'){
             return _mm.request({
-                url     : _mm.getServerUrl('/manage/order/list.do'),
+                url     : _mm.getServerUrl('/seller/order/list.do'),
                 data    : {
                     pageNum : listParam.pageNum || 1
                 }
