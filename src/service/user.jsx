@@ -34,7 +34,7 @@ export default class User{
     // 登录
     login(userInfo){
         return mm.request({
-            url     : mm.getServerUrl('/manage/user/login.do'),
+            url     : mm.getServerUrl('/admin/user/login.do'),
             method  : 'POST',
             data    : {
                 username : userInfo.username || '',
@@ -45,8 +45,8 @@ export default class User{
     // 退出登录
     logout(){
         return mm.request({
-            url     : mm.getServerUrl('/user/logout.do'),
-            method  : 'POST',
+            url     : mm.getServerUrl('/admin/user/logout.do'),
+            method  : 'GET',
         });
     }
 }
