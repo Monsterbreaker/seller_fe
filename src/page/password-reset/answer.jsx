@@ -15,34 +15,43 @@ import User from 'service/user.jsx';
 const _mm    = new MMUtile();
 const _user  = new User();
 
-import { Link }     from 'react-router';
-
 const Login = React.createClass({
     getInitialState() {
         return {
+            question : '',
             username : '',
-            password : '',
+            answer   : '',
             redirect : _mm.getHashParam('redirect')
         };
     },
-    // 点击登录
-    onLogin(e){
+    componentDidMount: function(){
+        this.loadQuestion();
+    },
+    loadQuestion(){
+        let question=_mm.getStorage('question');
+        let username=_mm.getStorage('username');
+        this.setState(question);
+        this.setState(username);
+    },
+    // 点击提交答案
+    onClick(e){
         e.preventDefault();
-        let loginInfo   = {
-                username: this.state.username,
-                password: this.state.password
-            },
-            checkLogin  = _user.checkLoginInfo(loginInfo);
-        if(checkLogin.state){
-            // 登录成功后进行跳转
-            _user.login(loginInfo).then(res => {
-                _mm.setStorage('userInfo', res);
-                window.location.href = this.state.redirect || '#/home';
+        if(_mm.validate(this.state.answer,'require')){
+            let userInfo={
+                username:this.state.username,
+                answer:this.state.answer
+            }
+            _user.checkAnswer(userInfo).then(res => {
+                let q={
+                    'token':res
+                }
+                _mm.setStorage('token', q);
+                window.location.href = '#/password-confirm';
             }, errMsg => {
                 _mm.errorTips(errMsg);
             });
         }else{
-            _mm.errorTips(checkLogin.msg);
+            _mm.errorTips('请输入答案');
         }
     },
     // 输入框内容变化时，更新state中的字段
@@ -60,30 +69,22 @@ const Login = React.createClass({
                 <div className="col-md-4 col-md-offset-4">
                     <div className="login-panel panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">请登录</h3>
+                            <h3 className="panel-title">找回密码</h3>
                         </div>
                         <div className="panel-body">
-                            <form role="form" onSubmit={this.onLogin}>
+                            <form role="form" onSubmit={this.onClick}>
                                 <div className="form-group">
+                                    <span>{this.state.question}</span>
                                     <input className="form-control" 
-                                        placeholder="User Name" 
-                                        name="username" 
+                                        placeholder="请输入答案" 
+                                        name="answer" 
                                         type="text" 
                                         autoComplete="off" 
                                         autoFocus 
                                         onChange={this.onInputChange}/>
                                 </div>
-                                <div className="form-group">
-                                    <input className="form-control" 
-                                        placeholder="Password" 
-                                        name="password" 
-                                        type="password" 
-                                        onChange={this.onInputChange}/>
-                                </div>
-                                <button type="submit" className="btn btn-lg btn-primary btn-block">登录</button>
+                                <button type="submit" className="btn btn-lg btn-primary btn-block">确认</button>
                             </form>
-                            <Link className="link" to="/password-reset">找回密码</Link>
-                            <Link className="link" to="/register">注册账号</Link>
                         </div>
                     </div>
                 </div>

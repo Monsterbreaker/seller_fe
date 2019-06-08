@@ -76,7 +76,7 @@ class MMUtil{
         }
         // number / string / boolean
         else if(typeof data === 'number' || typeof data === 'string' || typeof data === 'boolean'){
-            window.localStorage.setItem(name, jsonString);
+            window.localStorage.setItem(name, data);
         }
         // undefined / function
         else{
@@ -100,6 +100,22 @@ class MMUtil{
     // 跳转登录
     doLogin(){
         window.location.href = '#/login?redirect=' + encodeURIComponent(window.location.hash);
+    }
+    // 字段的验证，支持非空、手机、邮箱的判断
+    validate(value, t){
+        var value = $.trim(value);
+        // 非空验证
+        if('require' === t){
+            return !!value;
+        }
+        // 手机号验证
+        if('phone' === t){
+            return /^1\d{10}$/.test(value);
+        }
+        // 邮箱格式验证
+        if('email' === t){
+            return /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(value);
+        }
     }
 }
 export default MMUtil;

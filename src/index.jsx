@@ -31,9 +31,14 @@ import ProductCategoryAdd   from 'page/product/category/add.jsx';
 import OrderList            from 'page/order/index.jsx';
 import OrderDetail          from 'page/order/detail.jsx';
 import UserInfo             from 'page/user/index.jsx';
+import UserModify           from 'page/user/modify.jsx';
 import Login                from 'page/login/index.jsx';
+import PasswordReset        from 'page/password-reset/index.jsx';
+import PasswordAnswer       from 'page/password-reset/answer.jsx';
+import PasswordConfirm      from 'page/password-reset/password-confirm.jsx';
 import ErrorPage            from 'page/error/index.jsx';
 import BlankPage            from 'page/blank/index.jsx';
+import Register             from 'page/register/index.jsx';
 
 // render router
 render(
@@ -67,9 +72,14 @@ render(
             <Route path="user" component={Layout}>
                 <IndexRedirect to="index" />
                 <Route path="index" component={UserInfo}/>
+                <Route path="modify(/:uId)" component={UserModify}/>
             </Route>
             {/* without layout */} 
             <Route path="login" component={Login}/>
+            <Route path="register" component={Register}/>
+            <Route path="password-reset" component={PasswordReset}/>
+            <Route path="password-answer" component={PasswordAnswer}/>
+            <Route path="password-confirm" component={PasswordConfirm}/>
             <Route path="blank" component={Layout}>
                 <IndexRedirect to="index" />
                 <Route path="index" component={BlankPage}/>

@@ -8,6 +8,7 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link }     from 'react-router';
 
 import PageTitle    from 'component/page-title/index.jsx';
 
@@ -61,7 +62,7 @@ const UserInfo = React.createClass({
                             <span className="label">答 案：</span>
                             <span className="text">{this.state.answer}</span>
                         </div>
-                        {/* <a className="btn btn-submit" href="./user-center-update.html">编辑</a> */}
+                        <Link className="btn btn-primary" to="/user/modify"><i className="fa fa-plus fa-pencil"></i>修改信息</Link>
                     </div>
                 </div>
             </div>

@@ -15,34 +15,32 @@ import User from 'service/user.jsx';
 const _mm    = new MMUtile();
 const _user  = new User();
 
-import { Link }     from 'react-router';
-
 const Login = React.createClass({
     getInitialState() {
         return {
-            username : '',
-            password : '',
+            password:'',
+            confirmPassword:'',
             redirect : _mm.getHashParam('redirect')
         };
     },
-    // 点击登录
-    onLogin(e){
+    // 点击重置新密码
+    onClick(e){
         e.preventDefault();
-        let loginInfo   = {
-                username: this.state.username,
-                password: this.state.password
-            },
-            checkLogin  = _user.checkLoginInfo(loginInfo);
-        if(checkLogin.state){
-            // 登录成功后进行跳转
-            _user.login(loginInfo).then(res => {
-                _mm.setStorage('userInfo', res);
-                window.location.href = this.state.redirect || '#/home';
+        let check=_user.checkPassword(this.state.password,this.state.confirmPassword)
+        if(check.state){
+            let userInfo={
+                username:_mm.getStorage('username')['username'],
+                forgetToken:_mm.getStorage('token')['token'],
+                newPassword:this.state.password,
+            }
+            _user.resetPassword(userInfo).then(res => {
+                alert(res);
+                window.location.href = this.state.redirect || '#/login';
             }, errMsg => {
                 _mm.errorTips(errMsg);
             });
         }else{
-            _mm.errorTips(checkLogin.msg);
+            _mm.errorTips(check.msg);
         }
     },
     // 输入框内容变化时，更新state中的字段
@@ -60,30 +58,26 @@ const Login = React.createClass({
                 <div className="col-md-4 col-md-offset-4">
                     <div className="login-panel panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">请登录</h3>
+                            <h3 className="panel-title">找回密码</h3>
                         </div>
                         <div className="panel-body">
-                            <form role="form" onSubmit={this.onLogin}>
+                            <form role="form" onSubmit={this.onClick}>
                                 <div className="form-group">
                                     <input className="form-control" 
-                                        placeholder="User Name" 
-                                        name="username" 
-                                        type="text" 
-                                        autoComplete="off" 
-                                        autoFocus 
-                                        onChange={this.onInputChange}/>
-                                </div>
-                                <div className="form-group">
-                                    <input className="form-control" 
-                                        placeholder="Password" 
+                                        placeholder="请输入新密码" 
                                         name="password" 
                                         type="password" 
                                         onChange={this.onInputChange}/>
                                 </div>
-                                <button type="submit" className="btn btn-lg btn-primary btn-block">登录</button>
+                                <div className="form-group">
+                                    <input className="form-control" 
+                                        placeholder="再次输入密码" 
+                                        name="confirmPassword" 
+                                        type="password" 
+                                        onChange={this.onInputChange}/>
+                                </div>
+                                <button type="submit" className="btn btn-lg btn-primary btn-block">确认</button>
                             </form>
-                            <Link className="link" to="/password-reset">找回密码</Link>
-                            <Link className="link" to="/register">注册账号</Link>
                         </div>
                     </div>
                 </div>
