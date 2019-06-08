@@ -28,7 +28,7 @@ const SideNav = React.createClass({
                         <li>
                             <IndexLink to="/home" activeClassName="active">
                                 <i className="fa fa-dashboard fa-fw"></i>
-                                <span>Home</span>
+                                <span>营业额</span>
                             </IndexLink>
                         </li>
                         <li>
@@ -56,14 +56,14 @@ const SideNav = React.createClass({
                                 </li>
                             </ul>
                         </li>
-                        {/*
+                        
                         <li>
                             <Link to="/user">
                                 <i className="fa fa-user-o fa-fw"></i>
-                                <span>用户</span>
+                                <span>用户管理</span>
                             </Link>
                         </li>
-                        */}
+                       
                     </ul>
                 </div>
             </div>

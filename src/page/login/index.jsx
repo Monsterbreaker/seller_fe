@@ -78,7 +78,7 @@ const Login = React.createClass({
                                         type="password" 
                                         onChange={this.onInputChange}/>
                                 </div>
-                                <button type="submit" className="btn btn-lg btn-primary btn-block">Login</button>
+                                <button type="submit" className="btn btn-lg btn-primary btn-block">登录</button>
                             </form>
                         </div>
                     </div>

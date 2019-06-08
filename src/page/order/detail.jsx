@@ -45,6 +45,7 @@ const OrderDetail = React.createClass({
     onSendGoods(){
         if(confirm('是否确认该订单已发货？')){
             _order.sendGoods(this.state.orderNumber).then(res => {
+                alert("发货成功！");
                 this.loadOrderDetail();
             }, errMsg => {
                 _mm.errorTips(errMsg);
@@ -76,7 +77,7 @@ const OrderDetail = React.createClass({
                                 <label htmlFor="subtitle" className="col-md-2 control-label">收件人：</label>
                                 <div className="col-md-5">
                                     <p type="text" className="form-control-static">
-                                        {this.state.orderInfo.receiverName}，
+                                        {receiverInfo.receiverName}，
                                         {receiverInfo.receiverProvince} 
                                         {receiverInfo.receiverCity}，
                                         {receiverInfo.receiverAddress}，

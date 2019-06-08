@@ -24,7 +24,7 @@ export default class Order{
         }
         else if(listParam.listType == 'search'){
             return _mm.request({
-                url     : _mm.getServerUrl('/manage/order/search.do'),
+                url     : _mm.getServerUrl('/seller/order/search.do'),
                 data    : listParam
             });
         } 
@@ -32,7 +32,7 @@ export default class Order{
     // 获取订单详情
     getOrderDetail(orderNo){
         return _mm.request({
-            url     : _mm.getServerUrl('/manage/order/detail.do'),
+            url     : _mm.getServerUrl('/seller/order/detail.do'),
             data    : {
                 orderNo : orderNo || 0
             }
@@ -41,10 +41,25 @@ export default class Order{
     // 发货
     sendGoods(orderNo){
         return _mm.request({
-            url     : _mm.getServerUrl('/manage/order/send_goods.do'),
+            url     : _mm.getServerUrl('/seller/order/deliver.do'),
+            method:'POST',
             data    : {
                 orderNo : orderNo || 0
             }
+        });
+    }
+    // 周成交量
+    turnoverWeek(){
+        return _mm.request({
+            url     : _mm.getServerUrl('/seller/order/turnover/week.do'),
+            method:'GET',
+        });
+    }
+    // 月成交量
+    turnoverMonth(){
+        return _mm.request({
+            url     : _mm.getServerUrl('/seller/order/turnover/month.do'),
+            method:'GET',
         });
     }
 }

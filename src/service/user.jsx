@@ -49,4 +49,11 @@ export default class User{
             method  : 'GET',
         });
     }
+    // 获取商家信息
+    getUserInfo(){
+        return mm.request({
+            url     : mm.getServerUrl('/user/info.do'),
+            method  : 'GET',
+        });
+    }
 }
