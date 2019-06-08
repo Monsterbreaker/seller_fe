@@ -43,7 +43,8 @@ export default class Product{
     saveProduct(product){
         return _mm.request({
             url     : _mm.getServerUrl('/manage/product/save.do'),
-            data    : product
+            data    : product,
+            method  : 'POST'
         });
     }
     // 改变商品状态
@@ -59,7 +60,7 @@ export default class Product{
     // 获取品类
     getCategory(parentCategoryId){
         return _mm.request({
-            url     : _mm.getServerUrl('/manage/category/get_category.do'),
+            url     : _mm.getServerUrl('/seller/category/get_category.do'),
             data    : {
                 categoryId : parentCategoryId || 0
             }
