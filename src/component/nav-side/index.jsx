@@ -40,9 +40,6 @@ const SideNav = React.createClass({
                                 <li>
                                     <Link to="/product" activeClassName="active">商品管理</Link>
                                 </li>
-                                <li>
-                                    <Link to="/product.category" activeClassName="active">品类管理</Link>
-                                </li>
                             </ul>
                         </li>
                         <li>
